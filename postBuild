@@ -7,3 +7,12 @@ for notebook in image-tests/*.ipynb; do
         exit 1
     fi
 done
+
+# Test if notebook can be converted to pdf
+for notebook in image-tests/*.ipynb; do
+    jupyter nbconvert --to webpdf "$notebook"
+    if [ ! -f "${notebook%.ipynb}.pdf" ]; then
+        echo "Error: PDF conversion failed for $notebook"
+        exit 1
+    fi
+done
