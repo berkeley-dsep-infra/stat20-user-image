@@ -88,6 +88,9 @@ ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
 RUN install -d -o ${NB_USER} -g ${NB_USER} ${VSCODE_EXTENSIONS} && \
     chown ${NB_USER}:${NB_USER} ${CONDA_DIR}/share/code-server
 
+ENV REPO_DIR=/srv/repo
+COPY --chown=${NB_USER}:${NB_USER} image-tests ${REPO_DIR}/image-tests
+
 USER ${NB_USER}
 
 # Install Code Server Jupyter extension
