@@ -2,6 +2,12 @@ name: Build and test container image
 
 on:
   pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'LICENSE'
+      - '.github/**'
+      - 'images/**'
 
 jobs:
   test-build:
@@ -13,25 +19,12 @@ jobs:
       - name: Checkout files in repo
         uses: actions/checkout@v4
 
-      - name: See if the image config changed
-        id: changed-files
-        uses: tj-actions/changed-files@v44
-        with:
-          files_ignore: |
-            README.md
-            CONTRIBUTING.md
-            LICENSE
-            .github/**
-            images/**
-
       - name: Cleanup disk space
-        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
           df -h
 
       - name: Build and test the image if any image file(s) changed
-        if: steps.changed-files.outputs.any_changed == 'true'
         uses: jupyterhub/repo2docker-action@master
         with:
           FORCE_REPO2DOCKER_VERSION: jupyter-repo2docker==2024.07.0
