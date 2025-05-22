@@ -1,5 +1,5 @@
-FROM rocker/geospatial:4.4.2
-# https://github.com/rocker-org/rocker-versioned2/wiki/geospatial_69e6b17dd7e3
+FROM rocker/geospatial:4.5.0
+# https://github.com/rocker-org/rocker-versioned2/wiki/geospatial_871e1512223f
 
 ENV NB_USER=rstudio
 ENV NB_UID=1000
@@ -43,15 +43,15 @@ RUN apt-get update && \
 
 # While quarto is included with rocker/verse, we sometimes need different
 # versions than the default. For example a newer version might fix bugs.
-ENV _QUARTO_VERSION=1.6.40
-RUN curl -L -o /tmp/quarto.deb https://github.com/quarto-dev/quarto-cli/releases/download/v${_QUARTO_VERSION}/quarto-${_QUARTO_VERSION}-linux-amd64.deb
-RUN apt-get update > /dev/null && \
-    apt-get install /tmp/quarto.deb > /dev/null && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -f /tmp/quarto.deb
+#ENV _QUARTO_VERSION=1.6.40
+#RUN curl -L -o /tmp/quarto.deb https://github.com/quarto-dev/quarto-cli/releases/download/v${_QUARTO_VERSION}/quarto-${_QUARTO_VERSION}-linux-amd64.deb
+#RUN apt-get update > /dev/null && \
+#    apt-get install /tmp/quarto.deb > /dev/null && \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/* && \
+#    rm -f /tmp/quarto.deb
 
-ENV SHINY_SERVER_URL=https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.22.1017-amd64.deb
+ENV SHINY_SERVER_URL=https://download3.rstudio.org/ubuntu-20.04/x86_64/shiny-server-1.5.23.1030-amd64.deb
 RUN curl --silent --location --fail ${SHINY_SERVER_URL} > /tmp/shiny-server.deb && \
     apt install --no-install-recommends --yes /tmp/shiny-server.deb && \
     rm /tmp/shiny-server.deb
@@ -99,8 +99,8 @@ RUN ${CONDA_DIR}/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install
 # Install R libraries as our user
 USER ${NB_USER}
 
-COPY install-r-packages.r /tmp/
-RUN Rscript /tmp/install-r-packages.r
+COPY install.r /tmp/
+RUN Rscript /tmp/install.r
 
 # Install IRKernel kernel
 RUN R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
