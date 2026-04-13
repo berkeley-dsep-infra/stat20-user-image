@@ -10,6 +10,7 @@ if (length(new_packages) > 0) {
 }
 
 packages <- c(
+  "cobalt@4.6.2",
   "countdown@0.4.0",
   "fivethirtyeight@0.6.2",
   "gapminder@1.0.0",
