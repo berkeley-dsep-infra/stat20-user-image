@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.5.0
+FROM rocker/geospatial:4.5.3
 # https://github.com/rocker-org/rocker-versioned2/wiki/geospatial_871e1512223f
 
 ENV NB_USER=rstudio
@@ -29,6 +29,7 @@ WORKDIR ${HOME}
 # tini is necessary because it is our ENTRYPOINT below.
 RUN apt-get update && \
     apt-get -qq install \
+            curl \
             less \
             tini \
             fonts-symbola \
@@ -103,6 +104,7 @@ COPY install.r /tmp/
 RUN Rscript /tmp/install.r
 
 # Install IRKernel kernel
+ENV LD_LIBRARY_PATH=${CONDA_DIR}/lib:$LD_LIBRARY_PATH
 RUN R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Configure locking behavior
