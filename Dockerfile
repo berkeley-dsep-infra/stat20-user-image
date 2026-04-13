@@ -29,6 +29,7 @@ WORKDIR ${HOME}
 # tini is necessary because it is our ENTRYPOINT below.
 RUN apt-get update && \
     apt-get -qq install \
+            curl \
             less \
             tini \
             fonts-symbola \
