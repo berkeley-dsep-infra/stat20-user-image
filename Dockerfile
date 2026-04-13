@@ -104,6 +104,7 @@ COPY install.r /tmp/
 RUN Rscript /tmp/install.r
 
 # Install IRKernel kernel
+ENV LD_LIBRARY_PATH=${CONDA_DIR}/lib:$LD_LIBRARY_PATH
 RUN R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 
 # Configure locking behavior
