@@ -1,4 +1,4 @@
-FROM rocker/geospatial:4.5.0
+FROM rocker/geospatial:4.5.3
 # https://github.com/rocker-org/rocker-versioned2/wiki/geospatial_871e1512223f
 
 ENV NB_USER=rstudio
