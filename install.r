@@ -49,7 +49,7 @@ packages <- c(
 
 renv::install(packages)
 
-devtools::install_github("mdbeckman/dcData", ref="a900560")
-devtools::install_github("hadley/emo@3f03b11")
-devtools::install_github("andrewpbray/boxofdata@8afd934")
-devtools::install_github("stat20/stat20data@2536a78")
+pak::pak("mdbeckman/dcData@a900560")
+pak::pak("hadley/emo@3f03b11")
+pak::pak("andrewpbray/boxofdata@8afd934")
+pak::pak("stat20/stat20data@2536a78")
