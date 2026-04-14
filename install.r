@@ -22,6 +22,7 @@ packages <- c(
   "kableExtra@1.4.0",
   "latex2exp@0.9.6",
   "markdown@2.0",
+  "MatchIt@4.7.2",
   "openintro@2.5.0",
   "pagedown@0.22",
   "palmerpenguins@0.1.1",
