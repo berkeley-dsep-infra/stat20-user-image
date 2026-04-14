@@ -83,8 +83,6 @@ RUN mamba env update -p ${CONDA_DIR} -f /tmp/environment.yml && \
 	mamba clean -afy
 RUN rm -f /tmp/environment.yml
 
-RUN df -h
-
 # Install R libraries as our user
 USER ${NB_USER}
 
@@ -98,15 +96,11 @@ RUN R --quiet -e "IRkernel::installspec(prefix='${CONDA_DIR}')"
 # Configure locking behavior
 COPY file-locks /etc/rstudio/file-locks
 
-RUN df -h
-
 # Prepare VS Code extensions
 USER root
 ENV VSCODE_EXTENSIONS=${CONDA_DIR}/share/code-server/extensions
 RUN install -d -o ${NB_USER} -g ${NB_USER} ${VSCODE_EXTENSIONS} && \
     chown ${NB_USER}:${NB_USER} ${CONDA_DIR}/share/code-server
-
-RUN df -h
 
 USER ${NB_USER}
 
@@ -115,7 +109,5 @@ RUN ${CONDA_DIR}/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install
 # Install Code Server Python extension
 RUN ${CONDA_DIR}/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension ms-python.python@2026.4.0
 RUN ${CONDA_DIR}/bin/code-server --extensions-dir ${VSCODE_EXTENSIONS} --install-extension quarto.quarto@1.131.0
-
-RUN df -h
 
 ENTRYPOINT ["tini", "--"]
