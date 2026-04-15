@@ -24,6 +24,7 @@ packages <- c(
   "markdown@2.0",
   "MatchIt@4.7.2",
   "openintro@2.5.0",
+  "optmatch@0.10.8",
   "pagedown@0.22",
   "palmerpenguins@0.1.1",
   "patchwork@1.3.0",
